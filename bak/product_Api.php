@@ -18,15 +18,19 @@ $args = array(
 $wp_query=new WP_Query($args);
 if ( $wp_query->have_posts() ) :
 	# Id already exist
-	$str = array
-(
-          'exist'=>true,
-       );
+    while ( $wp_query->have_posts() ) {
+        $wp_query->the_post();
+			$str = array(
+				'exist'=>array(
+							'article_id'=>get_the_id(),
+							'categories'=>get_the_category(),
+						),
+			);
+    }
 else: 
-	$str = array
-       (
-          'exist'=>false,
-       );
+	$str = array(
+        'exist'=>false,
+    );
 	
 	
 endif;

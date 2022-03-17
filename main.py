@@ -8,10 +8,11 @@ from loguru import logger
 
 @click.command()
 @click.option('--link', default="", help='Category Url.')
-@click.option('--father', default="", help='Parent category ID.')
-def run(link, father):
-    if link and father:
-        scrape_obj = Scrape(link, father)
+def run(link):
+    logger.add("./log/log_{time}.txt", level="WARNING", format='{message}')
+
+    if link:
+        scrape_obj = Scrape(link)
         scrape_obj.run()
     else:
         logger.error('Category link and Parent category ID is empty')
